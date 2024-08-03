@@ -1,0 +1,31 @@
+app:
+  myport: ${PORT:0}
+spring:
+  application:
+    name: cerveja-service
+  datasource:
+    url: jdbc:h2:mem:cerveja
+    username: sa
+    password: 123456
+    driver-class-name: org.h2.Driver
+  h2:
+    console:
+      enabled: true
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    defer-datasource-initialization: true
+server:
+  port: ${app.myport}
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${random.value}
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+management:
+  tracing:
+    propagation:
+      type: w3c
+    sampling:
+      probability: 1
